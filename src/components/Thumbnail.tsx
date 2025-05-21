@@ -20,7 +20,7 @@ export default function Thumbnail({ item }: { readonly item: WantedItem }) {
   };
 
   const header = (
-    <div className="relative w-full h-80 overflow-hidden rounded-t-lg">
+    <div className="relative h-80 w-full overflow-hidden rounded-t-lg">
       {!isLoaded && (
         <Skeleton width="100%" height="100%" className="h-full w-full" />
       )}
@@ -28,7 +28,7 @@ export default function Thumbnail({ item }: { readonly item: WantedItem }) {
         <img
           src={rawSrc!}
           alt={item.title}
-          className={`w-full h-80 object-cover rounded-t-lg transition-opacity duration-300 ${
+          className={`h-80 w-full rounded-t-lg object-cover transition-opacity duration-300 ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
           loading="lazy"
@@ -46,12 +46,12 @@ export default function Thumbnail({ item }: { readonly item: WantedItem }) {
   return (
     <Link
       to={`/details/${item.uid}`}
-      className="block rounded shadow hover:shadow-lg transition overflow-hidden"
+      className="block transform overflow-hidden rounded shadow transition-transform duration-300 ease-out hover:scale-95 hover:shadow-lg"
     >
       <Card
         header={header}
         title={item.title}
-        className="shadow hover:shadow-lg transition-shadow rounded overflow-hidden"
+        className="overflow-hidden rounded shadow transition-shadow hover:shadow-lg"
         style={{ width: "100%", height: "100%" }}
       />
     </Link>
