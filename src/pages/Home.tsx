@@ -58,6 +58,7 @@ export default function Home() {
 
   return (
     <>
+      <Pagination total={total} />
       {content}
       <Pagination total={total} />
     </>
