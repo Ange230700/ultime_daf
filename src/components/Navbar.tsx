@@ -19,7 +19,7 @@ type NavbarMenuItem = MenuItem & {
   command?: () => void;
 };
 
-function Navbar({ title, onTitleChange }: NavbarProps) {
+function Navbar({ title, onTitleChange }: Readonly<NavbarProps>) {
   const { theme, toggle } = useTheme();
   //   const navigate = useNavigate();
 

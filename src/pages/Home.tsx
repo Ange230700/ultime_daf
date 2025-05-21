@@ -30,6 +30,21 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, [title, posterClassification, page]);
 
+  let content: React.ReactNode;
+  if (loading) {
+    content = <Spinner />;
+  } else if (items.length === 0) {
+    content = <h2 className="text-center py-10">No results found</h2>;
+  } else {
+    content = (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
+        {items.map((item) => (
+          <Thumbnail key={item.uid} item={item} />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <>
       <section className="bg-gray-100">
@@ -38,17 +53,7 @@ export default function Home() {
         </div>
       </section>
 
-      {loading ? (
-        <Spinner />
-      ) : items.length === 0 ? (
-        <h2 className="text-center py-10">No results found</h2>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
-          {items.map((item) => (
-            <Thumbnail key={item.uid} item={item} />
-          ))}
-        </div>
-      )}
+      {content}
 
       <Pagination total={total} />
     </>

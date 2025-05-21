@@ -5,10 +5,10 @@ import { useFilter } from "../contexts/FilterContext";
 export default function Pagination({
   total,
   pageSize = 50,
-}: {
+}: Readonly<{
   total: number;
   pageSize?: number;
-}) {
+}>) {
   const { page, setPage } = useFilter();
   const maxPage = Math.ceil(total / pageSize);
 

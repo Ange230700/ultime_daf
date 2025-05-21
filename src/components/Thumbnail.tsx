@@ -3,7 +3,7 @@
 import type { WantedItem } from "../api/api";
 import { Link } from "react-router-dom";
 
-export default function Thumbnail({ item }: { item: WantedItem }) {
+export default function Thumbnail({ item }: { readonly item: WantedItem }) {
   return (
     <Link
       to={`/details/${item.uid}`}
