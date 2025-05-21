@@ -2,28 +2,25 @@
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { PrimeReactProvider /*, PrimeReactContext */ } from "primereact/api";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import Navbar from "./components/Navbar.tsx";
-import Home from "./pages/Home.tsx";
 import ThemeStyles from "./components/ThemeStyles.tsx";
 import { ThemeProvider } from "./providers/ThemeProvider.tsx";
+import App from "./App.tsx";
+import { FilterProvider } from "./providers/FilterProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider>
       <ThemeStyles />
       <PrimeReactProvider>
-        <BrowserRouter>
-          <Navbar />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-            </Routes>
-          </main>
-        </BrowserRouter>
+        <FilterProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </FilterProvider>
       </PrimeReactProvider>
     </ThemeProvider>
   </StrictMode>,

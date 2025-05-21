@@ -6,6 +6,12 @@ import type { MenuItem } from "primereact/menuitem";
 import { Button } from "primereact/button";
 import { /*useNavigate,*/ Link } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
+import type { ChangeEvent } from "react";
+
+export interface NavbarProps {
+  title: string;
+  onTitleChange: (newValue: string) => void;
+}
 
 type NavbarMenuItem = MenuItem & {
   label?: string;
@@ -13,7 +19,7 @@ type NavbarMenuItem = MenuItem & {
   command?: () => void;
 };
 
-function Navbar() {
+function Navbar({ title, onTitleChange }: NavbarProps) {
   const { theme, toggle } = useTheme();
   //   const navigate = useNavigate();
 
@@ -36,6 +42,10 @@ function Navbar() {
   const end = (
     <div className="flex align-items-center gap-2">
       <InputText
+        value={title}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          onTitleChange(e.currentTarget.value)
+        }
         placeholder="Search"
         type="text"
         className="w-8rem sm:w-auto"
