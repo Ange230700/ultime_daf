@@ -7,7 +7,7 @@ import { ThemeContext } from "../contexts/ThemeContext";
 export function ThemeProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
 
   // On mount, read from localStorage or system preference
   useEffect(() => {
