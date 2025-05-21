@@ -17,14 +17,20 @@ export default function Home() {
   useEffect(() => {
     setLoading(true);
     fetchWantedList({
-      title,
       poster_classification: posterClassification,
       page,
       pageSize: 50,
     })
       .then((data) => {
-        setItems(data.items);
-        setTotal(data.total);
+        let fetched = data.items;
+        if (title.trim().length > 0) {
+          const lower = title.toLowerCase();
+          fetched = fetched.filter((item) =>
+            item.title.toLowerCase().includes(lower),
+          );
+        }
+        setItems(fetched);
+        setTotal(fetched.length);
       })
       .finally(() => setLoading(false));
   }, [title, posterClassification, page]);
