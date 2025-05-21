@@ -8,14 +8,12 @@ function Header() {
   const { title, setTitle } = useFilter();
 
   return (
-    <>
+    <div style={{ backgroundColor: "var(--surface-card)" }}>
       <Navbar title={title} onTitleChange={setTitle} />
-      <section>
-        <div className="container mx-auto">
-          <FiltersNav />
-        </div>
-      </section>
-    </>
+      <div className="flex justify-center">
+        <FiltersNav />
+      </div>
+    </div>
   );
 }
 

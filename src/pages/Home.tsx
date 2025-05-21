@@ -39,10 +39,12 @@ export default function Home() {
   if (loading) {
     content = <Spinner />;
   } else if (items.length === 0) {
-    content = <h2 className="text-center py-10">No results found</h2>;
+    content = (
+      <h2 className="flex-1 text-center py-10 text-6xl">No results found</h2>
+    );
   } else {
     content = (
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
+      <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
         {items.map((item) => (
           <Thumbnail key={item.uid} item={item} />
         ))}
