@@ -1,38 +1,32 @@
 // src\components\Pagination.tsx
 
+import { Paginator } from "primereact/paginator";
+import type { PaginatorPageChangeEvent } from "primereact/paginator";
 import { useFilter } from "../contexts/FilterContext";
 
-export default function Pagination({
-  total,
-  pageSize = 50,
-}: Readonly<{
+interface PaginationProps {
   total: number;
-  pageSize?: number;
-}>) {
-  const { page, setPage } = useFilter();
-  const maxPage = Math.ceil(total / pageSize);
+}
+
+export default function Pagination({ total }: Readonly<PaginationProps>) {
+  const { page, setPage, pageSize, setPageSize } = useFilter();
+
+  const onPageChange = (event: PaginatorPageChangeEvent) => {
+    setPage(event.page + 1);
+    setPageSize(event.rows);
+  };
 
   return (
-    <div className="flex items-center justify-center gap-4 my-4">
-      <button
-        disabled={page <= 1}
-        onClick={() => setPage(page - 1)}
-        className="px-2 py-1 bg-gray-200 rounded disabled:opacity-50"
-      >
-        ←
-      </button>
-
-      <span>
-        Page {page} / {maxPage}
-      </span>
-
-      <button
-        disabled={page >= maxPage}
-        onClick={() => setPage(page + 1)}
-        className="px-2 py-1 bg-gray-200 rounded disabled:opacity-50"
-      >
-        →
-      </button>
+    <div className="my-4 flex justify-center">
+      <Paginator
+        first={(page - 1) * pageSize}
+        rows={pageSize}
+        totalRecords={total}
+        onPageChange={onPageChange}
+        rowsPerPageOptions={[10, 20, 30, 40, 50]}
+        template={{ layout: "PrevPageLink CurrentPageReport NextPageLink" }}
+        currentPageReportTemplate="{first}–{last} of {totalRecords}"
+      />
     </div>
   );
 }

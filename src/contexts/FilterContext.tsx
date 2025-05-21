@@ -9,6 +9,8 @@ export interface FilterContextType {
   setPosterClassification: React.Dispatch<React.SetStateAction<string>>;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  pageSize: number;
+  setPageSize: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const FilterContext = createContext<FilterContextType | undefined>(

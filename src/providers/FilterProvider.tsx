@@ -9,6 +9,7 @@ export function FilterProvider({
   const [title, setTitle] = useState("");
   const [posterClassification, setPosterClassification] = useState("");
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(50);
 
   const contextValue = useMemo(
     () => ({
@@ -18,11 +19,14 @@ export function FilterProvider({
       setPosterClassification,
       page,
       setPage,
+      pageSize,
+      setPageSize,
     }),
     [
       title,
       posterClassification,
       page,
+      pageSize,
       // note: React guarantees the setter functions have stable identity,
       // so you don’t need to include setTitle, setPosterClassification or setPage here
     ],
