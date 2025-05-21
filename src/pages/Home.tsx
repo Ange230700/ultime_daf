@@ -4,7 +4,6 @@ import { useFilter } from "../contexts/FilterContext";
 import { fetchWantedList } from "../api/api";
 import type { WantedItem } from "../api/api";
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
 import FiltersNav from "../components/FiltersNav";
 import Thumbnail from "../components/Thumbnail";
 import Pagination from "../components/Pagination";
@@ -33,7 +32,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <section className="bg-gray-100">
         <div className="container mx-auto">
           <FiltersNav />
