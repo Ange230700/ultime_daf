@@ -44,7 +44,7 @@ export default function Home() {
     );
   } else {
     content = (
-      <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
+      <div className="flex-1 grid sm:grid-cols-2 md:grid-cols-3 gap-3 p-4">
         {items.map((item) => (
           <Thumbnail key={item.uid} item={item} />
         ))}
