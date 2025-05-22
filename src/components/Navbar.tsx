@@ -50,7 +50,7 @@ function Navbar({ title, onTitleChange }: Readonly<NavbarProps>) {
   );
 
   const end = (
-    <div className="align-items-center flex gap-2">
+    <section className="align-items-center flex gap-2">
       <InputText
         value={title}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -66,13 +66,13 @@ function Navbar({ title, onTitleChange }: Readonly<NavbarProps>) {
         aria-label="Toggle theme"
         onClick={toggle}
       />
-    </div>
+    </section>
   );
 
   return (
-    <div className="card mb-4 shadow-md">
+    <nav className="card mb-4 shadow-md">
       <Menubar model={items} start={start} end={end} />
-    </div>
+    </nav>
   );
 }
 

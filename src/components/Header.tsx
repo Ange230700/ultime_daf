@@ -13,14 +13,14 @@ function Header() {
   const isStatsPage = location.pathname.includes("/stats");
 
   return (
-    <div style={{ backgroundColor: "var(--surface-card)" }}>
+    <header style={{ backgroundColor: "var(--surface-card)" }}>
       <Navbar title={title} onTitleChange={setTitle} />
       {!isDetailsPage && !isStatsPage && (
-        <div className="flex justify-center">
+        <section className="flex justify-center">
           <FiltersNav />
-        </div>
+        </section>
       )}
-    </div>
+    </header>
   );
 }
 

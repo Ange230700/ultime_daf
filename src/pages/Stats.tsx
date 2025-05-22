@@ -191,7 +191,7 @@ export default function Stats() {
   };
 
   return (
-    <article className="prose mx-auto my-8">
+    <article className="prose mx-auto my-8 flex-1">
       <div className="grid grid-cols-1 gap-8">
         {/* Pie */}
         <section className="rounded-lg p-4 shadow">

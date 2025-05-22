@@ -20,7 +20,12 @@ export default function Details() {
     fetchItemDetails(uid).then(setItem);
   }, [uid]);
 
-  if (!item) return <Spinner />;
+  if (!item)
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   const rows = [
     { field: "Place of Birth", value: item.place_of_birth ?? "Unknown" },
@@ -32,7 +37,7 @@ export default function Details() {
   ];
 
   return (
-    <article className="prose mx-auto my-8">
+    <article className="prose mx-auto my-8 flex-1">
       <Link to="/">
         <Button label="&larr; Back" />
       </Link>

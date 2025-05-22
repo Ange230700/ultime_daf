@@ -47,10 +47,16 @@ export default function Home() {
 
   let content: React.ReactNode;
   if (loading) {
-    content = <Spinner />;
+    content = (
+      <div className="flex flex-1 items-center justify-center">
+        <Spinner />
+      </div>
+    );
   } else if (items.length === 0) {
     content = (
-      <h2 className="flex-1 py-10 text-center text-6xl">No results found</h2>
+      <div className="flex flex-1 items-center justify-center">
+        <h2 className="flex-1 py-10 text-center text-6xl">No results found</h2>
+      </div>
     );
   } else {
     content = (
@@ -63,10 +69,10 @@ export default function Home() {
   }
 
   return (
-    <>
+    <section className="flex flex-1 flex-col gap-4">
       <Pagination total={total} />
       {content}
       <Pagination total={total} />
-    </>
+    </section>
   );
 }
