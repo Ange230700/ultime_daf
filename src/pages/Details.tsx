@@ -5,6 +5,10 @@ import { useEffect, useState } from "react";
 import { fetchItemDetails } from "../api/api";
 import type { WantedItem } from "../api/api";
 import Spinner from "../components/Spinner";
+import { Button } from "primereact/button";
+import { Image } from "primereact/image";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 
 export default function Details() {
   const { uid } = useParams<{ uid: string }>();
@@ -18,22 +22,22 @@ export default function Details() {
   if (!item) return <Spinner />;
 
   const rows = [
-    ["Place of Birth", item.place_of_birth],
-    ["Race", item.race],
-    ["Sex", item.sex],
-    ["Hair", item.hair],
-    ["Eyes", item.eyes],
-    ["Classification", item.poster_classification],
+    { field: "Place of Birth", value: item.place_of_birth ?? "Unknown" },
+    { field: "Race", value: item.race ?? "Unknown" },
+    { field: "Sex", value: item.sex ?? "Unknown" },
+    { field: "Hair", value: item.hair ?? "Unknown" },
+    { field: "Eyes", value: item.eyes ?? "Unknown" },
+    { field: "Classification", value: item.poster_classification ?? "Unknown" },
   ];
 
   return (
     <article className="prose mx-auto my-8">
-      <Link to="/" className="text-blue-600 underline">
-        &larr; Back
+      <Link to="/">
+        <Button label="&larr; Back" />
       </Link>
 
       <h1>{item.title}</h1>
-      <img
+      <Image
         src={item.images[0]?.large}
         alt={item.title}
         className="my-4 w-full max-w-md rounded shadow"
@@ -62,19 +66,16 @@ export default function Details() {
         )}
       </div>
 
-      <table className="mt-6 w-full table-auto border">
-        <tbody>
-          {rows.map(
-            ([label, value]) =>
-              value && (
-                <tr key={label}>
-                  <th className="border px-2 py-1 text-left">{label}</th>
-                  <td className="border px-2 py-1">{value}</td>
-                </tr>
-              ),
-          )}
-        </tbody>
-      </table>
+      <div className="mt-6">
+        <DataTable
+          value={rows}
+          stripedRows
+          tableStyle={{ width: "100%", minWidth: "30rem" }}
+        >
+          <Column field="field" header="Field" style={{ width: "40%" }} />
+          <Column field="value" header="Value" />
+        </DataTable>
+      </div>
     </article>
   );
 }
