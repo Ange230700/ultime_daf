@@ -1,4 +1,4 @@
-// src\pages\Stats.tsx
+// src/pages/Stats.tsx
 
 import { useEffect, useState } from "react";
 import { fetchWantedList } from "../api/api";
@@ -20,20 +20,19 @@ export default function Stats() {
       const officeCounts: Record<string, number> = {};
       const byYear: Record<number, number> = {};
 
-      // 2) single level of loop, no callbacks
       for (const it of items) {
-        // poster classification
+        // 1) Poster classification
         const cls = it.poster_classification ?? "unknown";
         posterCounts[cls] = (posterCounts[cls] ?? 0) + 1;
 
-        // field offices
+        // 2) Field offices
         if (it.field_offices) {
           for (const office of it.field_offices) {
             officeCounts[office] = (officeCounts[office] ?? 0) + 1;
           }
         }
 
-        // publication year
+        // 3) Publication year
         if (it.publication) {
           const year = new Date(it.publication).getFullYear();
           byYear[year] = (byYear[year] ?? 0) + 1;
@@ -54,15 +53,9 @@ export default function Stats() {
     return <p>Loading stats…</p>;
   }
 
-  // Prepare Chart.js data objects
   const pieData = {
     labels: Object.keys(stats.posterCounts),
-    datasets: [
-      {
-        data: Object.values(stats.posterCounts),
-        backgroundColor: [], // Chart.js will auto‐assign if empty
-      },
-    ],
+    datasets: [{ data: Object.values(stats.posterCounts) }],
   };
 
   const barData = {
@@ -71,7 +64,6 @@ export default function Stats() {
       {
         label: "Cases by Field Office",
         data: Object.values(stats.officeCounts),
-        backgroundColor: [],
       },
     ],
   };
@@ -88,24 +80,57 @@ export default function Stats() {
     ],
   };
 
+  const chartOptions = {
+    maintainAspectRatio: false,
+    // you can add other Chart.js options here
+  };
+
   return (
     <article className="prose mx-auto my-8">
-      <h1>Statistics</h1>
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        {/* Pie */}
+        <section className="rounded-lg p-4 shadow">
+          <h2 className="mb-2 text-lg font-semibold">Poster Classification</h2>
+          <div className="h-64">
+            <Chart
+              type="pie"
+              data={pieData}
+              options={chartOptions}
+              style={{ height: "100%" }}
+            />
+          </div>
+        </section>
 
-      <section>
-        <h2>Poster Classification Distribution</h2>
-        <Chart type="pie" data={pieData} />
-      </section>
+        {/* Bar */}
+        <section className="rounded-lg p-4 shadow">
+          <h2 className="mb-2 text-lg font-semibold">
+            Field Office Case Counts
+          </h2>
+          <div className="h-64">
+            <Chart
+              type="bar"
+              data={barData}
+              options={chartOptions}
+              style={{ height: "100%" }}
+            />
+          </div>
+        </section>
 
-      <section>
-        <h2>Field Office Case Counts</h2>
-        <Chart type="bar" data={barData} />
-      </section>
-
-      <section>
-        <h2>Yearly Publication Trend</h2>
-        <Chart type="line" data={lineData} />
-      </section>
+        {/* Line */}
+        <section className="rounded-lg p-4 shadow">
+          <h2 className="mb-2 text-lg font-semibold">
+            Yearly Publication Trend
+          </h2>
+          <div className="h-64">
+            <Chart
+              type="line"
+              data={lineData}
+              options={chartOptions}
+              style={{ height: "100%" }}
+            />
+          </div>
+        </section>
+      </div>
     </article>
   );
 }
