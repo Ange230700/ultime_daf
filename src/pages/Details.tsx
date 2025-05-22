@@ -36,7 +36,7 @@ export default function Details() {
       <img
         src={item.images[0]?.large}
         alt={item.title}
-        className="w-full max-w-md rounded shadow my-4"
+        className="my-4 w-full max-w-md rounded shadow"
       />
 
       <div className="space-y-4">
@@ -62,7 +62,7 @@ export default function Details() {
         )}
       </div>
 
-      <table className="table-auto border mt-6 w-full">
+      <table className="mt-6 w-full table-auto border">
         <tbody>
           {rows.map(
             ([label, value]) =>

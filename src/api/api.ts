@@ -46,6 +46,6 @@ export async function fetchWantedList(params: {
 }
 
 export async function fetchItemDetails(uid: string): Promise<WantedItem> {
-  const { data } = await api.get<WantedItem>(`/wanted/${uid}`);
+  const { data } = await api.get<WantedItem>(`/@wanted-person/${uid}`);
   return data;
 }
