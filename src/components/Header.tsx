@@ -10,11 +10,12 @@ function Header() {
   const location = useLocation();
 
   const isDetailsPage = location.pathname.startsWith("/details");
+  const isStatsPage = location.pathname.includes("/stats");
 
   return (
     <div style={{ backgroundColor: "var(--surface-card)" }}>
       <Navbar title={title} onTitleChange={setTitle} />
-      {!isDetailsPage && (
+      {!isDetailsPage && !isStatsPage && (
         <div className="flex justify-center">
           <FiltersNav />
         </div>
