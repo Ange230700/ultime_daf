@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import useTheme from "../hooks/useTheme";
 
-function ThemeStyles() {
+export default function ThemeStyles() {
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -21,5 +21,3 @@ function ThemeStyles() {
 
   return null;
 }
-
-export default ThemeStyles;

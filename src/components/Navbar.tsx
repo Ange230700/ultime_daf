@@ -20,7 +20,10 @@ type NavbarMenuItem = MenuItem & {
   command?: () => void;
 };
 
-function Navbar({ title, onTitleChange }: Readonly<NavbarProps>) {
+export default function Navbar({
+  title,
+  onTitleChange,
+}: Readonly<NavbarProps>) {
   const { theme, toggle } = useTheme();
   const navigate = useNavigate();
   const { resetFilters } = useFilter();
@@ -75,5 +78,3 @@ function Navbar({ title, onTitleChange }: Readonly<NavbarProps>) {
     </nav>
   );
 }
-
-export default Navbar;

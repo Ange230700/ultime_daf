@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import FiltersNav from "./FiltersNav";
 
-function Header() {
+export default function Header() {
   const { title, setTitle } = useFilter();
   const location = useLocation();
 
@@ -23,5 +23,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;
