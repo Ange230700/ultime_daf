@@ -23,26 +23,21 @@ export default function FiltersNav() {
     (cls) => cls === posterClassification,
   );
   const [activeIndex, setActiveIndex] = useState(
-    initialIndex >= 0 ? initialIndex : 0,
+    initialIndex >= 0 ? initialIndex : undefined,
   );
 
   // Keep the tab highlight in sync if posterClassification changes externally
   useEffect(() => {
-    const idx = POSTER_CLASSIFICATIONS.findIndex(
+    const newIdx = POSTER_CLASSIFICATIONS.findIndex(
       (cls) => cls === posterClassification,
     );
-    if (idx >= 0 && idx !== activeIndex) {
-      setActiveIndex(idx);
-    }
-  }, [posterClassification, activeIndex]);
+    setActiveIndex(newIdx >= 0 ? newIdx : undefined);
+  }, [posterClassification]);
 
   // When the user clicks a tab...
   const onTabChange = (e: { index: number }) => {
-    const newIndex = e.index;
-    const cls = POSTER_CLASSIFICATIONS[newIndex];
-
-    setActiveIndex(newIndex);
-    setPosterClassification(cls);
+    setActiveIndex(e.index);
+    setPosterClassification(POSTER_CLASSIFICATIONS[e.index]);
     setPage(1);
   };
 

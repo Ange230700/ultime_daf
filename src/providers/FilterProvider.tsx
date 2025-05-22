@@ -1,15 +1,29 @@
 // src\providers\FilterProvider.tsx
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { FilterContext } from "../contexts/FilterContext";
+
+const initialTitle = "";
+const initialPosterClassification = "";
+const initialPage = 1;
+const initialPageSize = 50;
 
 export function FilterProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [title, setTitle] = useState("");
-  const [posterClassification, setPosterClassification] = useState("");
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(50);
+  const [title, setTitle] = useState(initialTitle);
+  const [posterClassification, setPosterClassification] = useState(
+    initialPosterClassification,
+  );
+  const [page, setPage] = useState(initialPage);
+  const [pageSize, setPageSize] = useState(initialPageSize);
+
+  const resetFilters = useCallback(() => {
+    setTitle(initialTitle);
+    setPosterClassification(initialPosterClassification);
+    setPage(initialPage);
+    setPageSize(initialPageSize);
+  }, []);
 
   const contextValue = useMemo(
     () => ({
@@ -21,12 +35,14 @@ export function FilterProvider({
       setPage,
       pageSize,
       setPageSize,
+      resetFilters,
     }),
     [
       title,
       posterClassification,
       page,
       pageSize,
+      resetFilters,
       // note: React guarantees the setter functions have stable identity,
       // so you don’t need to include setTitle, setPosterClassification or setPage here
     ],

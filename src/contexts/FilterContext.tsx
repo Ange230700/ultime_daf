@@ -11,6 +11,7 @@ export interface FilterContextType {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  resetFilters: () => void;
 }
 
 export const FilterContext = createContext<FilterContextType | undefined>(

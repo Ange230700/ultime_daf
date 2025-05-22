@@ -7,6 +7,7 @@ import { Button } from "primereact/button";
 import { /*useNavigate,*/ Link } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 import type { ChangeEvent } from "react";
+import { useFilter } from "../contexts/FilterContext";
 
 export interface NavbarProps {
   title: string;
@@ -22,6 +23,11 @@ type NavbarMenuItem = MenuItem & {
 function Navbar({ title, onTitleChange }: Readonly<NavbarProps>) {
   const { theme, toggle } = useTheme();
   //   const navigate = useNavigate();
+  const { resetFilters } = useFilter();
+
+  const handleLogoClick = () => {
+    resetFilters();
+  };
 
   const items: NavbarMenuItem[] = [
     // {
@@ -34,13 +40,17 @@ function Navbar({ title, onTitleChange }: Readonly<NavbarProps>) {
   ];
 
   const start = (
-    <Link to="/" className="flex items-center">
-      <img alt="logo" src="/assets/DAF-logo.png" className="h-16 w-auto mr-2" />
+    <Link
+      to="/"
+      onClick={handleLogoClick}
+      className="flex transform items-center transition-transform duration-200 ease-in-out hover:scale-120"
+    >
+      <img alt="logo" src="/assets/DAF-logo.png" className="mr-2 h-16 w-auto" />
     </Link>
   );
 
   const end = (
-    <div className="flex align-items-center gap-2">
+    <div className="align-items-center flex gap-2">
       <InputText
         value={title}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -60,7 +70,7 @@ function Navbar({ title, onTitleChange }: Readonly<NavbarProps>) {
   );
 
   return (
-    <div className="card shadow-md mb-4">
+    <div className="card mb-4 shadow-md">
       <Menubar model={items} start={start} end={end} />
     </div>
   );
