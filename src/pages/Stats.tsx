@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import { fetchWantedList } from "../api/api";
 import { Chart } from "primereact/chart";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 interface StatsData {
   posterCounts: Record<string, number>;
@@ -53,9 +57,108 @@ export default function Stats() {
     return <p>Loading stats…</p>;
   }
 
+  // Theme CSS variables
+  const style = getComputedStyle(document.documentElement);
+  const textColor = style.getPropertyValue("--text-color").trim();
+  const textColorSecondary = style
+    .getPropertyValue("--text-color-secondary")
+    .trim();
+  const surfaceBorder = style.getPropertyValue("--surface-border").trim();
+  const themeColors = [
+    style.getPropertyValue("--blue-500").trim(),
+    style.getPropertyValue("--green-500").trim(),
+    style.getPropertyValue("--yellow-500").trim(),
+    style.getPropertyValue("--red-500").trim(),
+  ];
+
+  // Build chart data
+  const pieLabels = Object.keys(stats.posterCounts);
+  const pieValues = Object.values(stats.posterCounts);
+
+  const barLabels = Object.keys(stats.officeCounts);
+  const barValues = Object.values(stats.officeCounts);
+  const barColors = barLabels.map(
+    (_, i) => themeColors[i % themeColors.length],
+  );
+
+  const lineLabels = Object.keys(stats.byYear);
+  const lineValues = Object.values(stats.byYear);
+
+  // Common chart options for legend and color
+
+  const chartOptions = {
+    maintainAspectRatio: false,
+    // you can add other Chart.js options here
+  };
+
+  const commonOptions = {
+    ...chartOptions,
+    plugins: {
+      legend: {
+        label: { color: textColor },
+      },
+    },
+  };
+
+  // Pie options with data labels plugin for percentages
+  const pieOptions = {
+    ...commonOptions,
+    plugins: {
+      ...commonOptions.plugins,
+      datalabels: {
+        color: textColor,
+        formatter: (
+          value: number,
+          ctx: { chart: { data: { datasets: Array<{ data: number[] }> } } },
+        ) => {
+          const dataArr = ctx.chart.data.datasets[0].data;
+          const sum = dataArr.reduce((acc, curr) => acc + curr, 0);
+          const percentage = ((value * 100) / sum).toFixed(1) + "%";
+          return percentage;
+        },
+        anchor: "center",
+        align: "center",
+      },
+    },
+  };
+
+  const barOptions = {
+    ...commonOptions,
+    scales: {
+      x: {
+        ticks: { color: textColorSecondary },
+        grid: { color: surfaceBorder },
+      },
+      y: {
+        ticks: { color: textColorSecondary },
+        grid: { color: surfaceBorder },
+        beginAtZero: true,
+      },
+    },
+  };
+
+  const lineOptions = {
+    ...commonOptions,
+    scales: {
+      x: {
+        ticks: { color: textColorSecondary },
+        grid: { color: surfaceBorder },
+      },
+      y: {
+        ticks: { color: textColorSecondary },
+        grid: { color: surfaceBorder },
+      },
+    },
+  };
+
   const pieData = {
-    labels: Object.keys(stats.posterCounts),
-    datasets: [{ data: Object.values(stats.posterCounts) }],
+    labels: pieLabels,
+    datasets: [
+      {
+        data: pieValues,
+        backgroundColor: themeColors.slice(0, pieLabels.length),
+      },
+    ],
   };
 
   const barData = {
@@ -63,26 +166,23 @@ export default function Stats() {
     datasets: [
       {
         label: "Cases by Field Office",
-        data: Object.values(stats.officeCounts),
+        data: barValues,
+        backgroundColor: barColors,
       },
     ],
   };
 
   const lineData = {
-    labels: Object.keys(stats.byYear),
+    labels: lineLabels,
     datasets: [
       {
         label: "Publications per Year",
-        data: Object.values(stats.byYear),
+        data: lineValues,
         fill: false,
         tension: 0.4,
+        borderColor: themeColors[0],
       },
     ],
-  };
-
-  const chartOptions = {
-    maintainAspectRatio: false,
-    // you can add other Chart.js options here
   };
 
   return (
@@ -91,11 +191,11 @@ export default function Stats() {
         {/* Pie */}
         <section className="rounded-lg p-4 shadow">
           <h2 className="mb-2 text-2xl font-semibold">Poster Classification</h2>
-          <div className="h-64">
+          <div className="h-112">
             <Chart
               type="pie"
               data={pieData}
-              options={chartOptions}
+              options={pieOptions}
               style={{ height: "100%" }}
             />
           </div>
@@ -106,11 +206,11 @@ export default function Stats() {
           <h2 className="mb-2 text-2xl font-semibold">
             Field Office Case Counts
           </h2>
-          <div className="h-64">
+          <div className="h-112">
             <Chart
               type="bar"
               data={barData}
-              options={chartOptions}
+              options={barOptions}
               style={{ height: "100%" }}
             />
           </div>
@@ -121,11 +221,11 @@ export default function Stats() {
           <h2 className="mb-2 text-2xl font-semibold">
             Yearly Publication Trend
           </h2>
-          <div className="h-64">
+          <div className="h-112">
             <Chart
               type="line"
               data={lineData}
-              options={chartOptions}
+              options={lineOptions}
               style={{ height: "100%" }}
             />
           </div>
