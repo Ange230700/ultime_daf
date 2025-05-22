@@ -20,7 +20,7 @@ export default function Thumbnail({ item }: { readonly item: WantedItem }) {
   };
 
   const header = (
-    <div className="relative h-80 w-full overflow-hidden rounded-t-lg">
+    <div className="relative h-48 w-full overflow-hidden rounded-t-lg">
       {!isLoaded && (
         <Skeleton width="100%" height="100%" className="h-full w-full" />
       )}
@@ -28,7 +28,7 @@ export default function Thumbnail({ item }: { readonly item: WantedItem }) {
         <img
           src={rawSrc}
           alt={item.title}
-          className={`h-80 w-full rounded-t-lg object-cover transition-opacity duration-300 ${
+          className={`h-full w-full object-contain object-top transition-opacity duration-300 ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
           loading="lazy"
@@ -36,10 +36,16 @@ export default function Thumbnail({ item }: { readonly item: WantedItem }) {
           onError={handleError}
         />
       ) : (
-        <div className="flex h-80 items-center justify-center rounded-t-lg">
+        <div className="flex h-full items-center justify-center rounded-t-lg">
           <Avatar icon="pi pi-image" size="xlarge" shape="circle" />
         </div>
       )}
+    </div>
+  );
+
+  const title = (
+    <div className="flex flex-col justify-center">
+      <p className="text-center text-lg font-bold">{item.title}</p>
     </div>
   );
 
@@ -50,7 +56,7 @@ export default function Thumbnail({ item }: { readonly item: WantedItem }) {
     >
       <Card
         header={header}
-        title={item.title}
+        title={title}
         className="overflow-hidden rounded shadow transition-shadow hover:shadow-lg"
         style={{ width: "100%", height: "100%" }}
       />
