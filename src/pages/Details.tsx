@@ -37,40 +37,43 @@ export default function Details() {
         <Button label="&larr; Back" />
       </Link>
 
-      <h1>{item.title}</h1>
-      <Image
-        src={item.images[0]?.large}
-        alt={item.title}
-        className="my-4 w-full max-w-md rounded shadow"
-      />
+      <h1 className="mt-8 text-3xl">{item.title}</h1>
 
-      <div className="space-y-4">
-        {item.description && (
-          <div>
-            <strong>Description:</strong> {item.description}
-          </div>
-        )}
-        {item.caution && (
-          <div>
-            <strong>Caution:</strong>{" "}
-            <SafeHtml html={item.caution} className="mt-1 ml-4" />
-          </div>
-        )}
-        {item.details && (
-          <div>
-            <strong>Details:</strong>{" "}
-            <SafeHtml html={item.details} className="mt-1 ml-4" />
-          </div>
-        )}
-        {item.remarks && (
-          <div>
-            <strong>Remarks:</strong>{" "}
-            <SafeHtml html={item.remarks} className="mt-1 ml-4" />
-          </div>
-        )}
+      <div className="my-8 flex flex-col items-start gap-8 lg:flex-row">
+        <Image
+          src={item.images[0]?.large}
+          alt={item.title}
+          className="w-full max-w-md rounded shadow lg:w-1/2"
+        />
+
+        <div className="flex-1 space-y-4">
+          {item.description && (
+            <div>
+              <strong>Description:</strong> {item.description}
+            </div>
+          )}
+          {item.caution && (
+            <div>
+              <strong>Caution:</strong>{" "}
+              <SafeHtml html={item.caution} className="mt-1 ml-4" />
+            </div>
+          )}
+          {item.details && (
+            <div>
+              <strong>Details:</strong>{" "}
+              <SafeHtml html={item.details} className="mt-1 ml-4" />
+            </div>
+          )}
+          {item.remarks && (
+            <div>
+              <strong>Remarks:</strong>{" "}
+              <SafeHtml html={item.remarks} className="mt-1 ml-4" />
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="mt-6 px-40">
+      <div className="mt-6">
         <DataTable
           value={rows}
           stripedRows
