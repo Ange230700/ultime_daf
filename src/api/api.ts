@@ -20,6 +20,8 @@ export interface WantedItem {
   hair?: string;
   eyes?: string;
   poster_classification?: string;
+  field_offices?: string[];
+  publication?: string;
   // …other fields
 }
 

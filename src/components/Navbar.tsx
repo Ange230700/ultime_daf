@@ -4,7 +4,7 @@ import { Menubar } from "primereact/menubar";
 import { InputText } from "primereact/inputtext";
 import type { MenuItem } from "primereact/menuitem";
 import { Button } from "primereact/button";
-import { /*useNavigate,*/ Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 import type { ChangeEvent } from "react";
 import { useFilter } from "../contexts/FilterContext";
@@ -22,7 +22,7 @@ type NavbarMenuItem = MenuItem & {
 
 function Navbar({ title, onTitleChange }: Readonly<NavbarProps>) {
   const { theme, toggle } = useTheme();
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   const { resetFilters } = useFilter();
 
   const handleLogoClick = () => {
@@ -30,13 +30,13 @@ function Navbar({ title, onTitleChange }: Readonly<NavbarProps>) {
   };
 
   const items: NavbarMenuItem[] = [
-    // {
-    //   label: "Home",
-    //   icon: "pi pi-home",
-    //   command: () => {
-    //     navigate("/");
-    //   },
-    // },
+    {
+      label: "Stats",
+      icon: "pi pi-chart-bar",
+      command: () => {
+        navigate("/stats");
+      },
+    },
   ];
 
   const start = (

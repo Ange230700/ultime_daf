@@ -3,6 +3,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
+import Stats from "./pages/Stats";
 import Header from "./components/Header";
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/details/:uid" element={<Details />} />
+          <Route path="/stats" element={<Stats />} />
         </Routes>
       </main>
     </>
