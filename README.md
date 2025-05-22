@@ -198,40 +198,7 @@ Here’s a high-level code review covering project structure, configuration, pat
 
 ---
 
-## 2. Vite & Tailwind Configuration
-
-### `vite.config.ts`
-
-```ts
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite"; // check that this matches the official plugin name
-export default defineConfig({
-  plugins: [tailwindcss(), react()],
-});
-```
-
-- **Plugin names.** The official Tailwind-for-Vite plugin is typically `@tailwindcss/vite-plugin`. Ensure your package name (`"@tailwindcss/vite": "^4.1.7"`) matches what you import.
-
-### `index.css`
-
-```css
-@import "tailwindcss"; /* ← this won’t generate base/components/utilities */
-```
-
-- **Fix:** Replace with the three Tailwind directives:
-
-  ```css
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-  ```
-
-- **Add** a top-level `tailwind.config.js` so you can customize your theme, screens, etc.
-
----
-
-## 3. HTML Entrypoint (`index.html`)
+## 2. HTML Entrypoint (`index.html`)
 
 ```html
 <body className="flex min-h-screen flex-col antialiased"></body>
@@ -246,7 +213,7 @@ export default defineConfig({
 
 ---
 
-## 4. Context & Provider Patterns
+## 3. Context & Provider Patterns
 
 - **Stable values:** You’re using `useCallback` + `useMemo` in providers—excellent for preventing unnecessary re-renders.
 - **Toast context:**
@@ -266,7 +233,7 @@ export default defineConfig({
 
 ---
 
-## 5. API Layer (`src/api/api.ts`)
+## 4. API Layer (`src/api/api.ts`)
 
 ```ts
 const api = axios.create({
@@ -291,7 +258,7 @@ const api = axios.create({
 
 ---
 
-## 6. Pages & Components
+## 5. Pages & Components
 
 ### Home Page (`Home.tsx`)
 
@@ -319,7 +286,7 @@ const api = axios.create({
 
 ---
 
-## 7. Styling & Theming
+## 6. Styling & Theming
 
 - **Dynamic theme CSS:** In `ThemeStyles.tsx`, you remove+append a `<link>` each time. That works, but you might also:
 
@@ -329,7 +296,7 @@ const api = axios.create({
 
 ---
 
-## 8. Build & Deployment
+## 7. Build & Deployment
 
 - **`postinstall` script:**
 
@@ -343,7 +310,7 @@ const api = axios.create({
 
 ---
 
-## 9. Testing & CI
+## 8. Testing & CI
 
 - You have Husky + lint-staged set up—great for code quality.
 - **Next steps:**
@@ -354,7 +321,7 @@ const api = axios.create({
 
 ---
 
-## 10. Miscellaneous
+## 9. Miscellaneous
 
 - **Accessibility:**
 
@@ -377,8 +344,4 @@ const api = axios.create({
 
 Overall, this is a solid, well-typed React + Vite + Tailwind project with clear separation of concerns. The biggest quick wins are:
 
-1. **Fix your Tailwind import & config** so your styles actually generate.
-2. **Correct the `className` → `class` in `index.html`.**
-3. **Reorganize** the `ToastProvider` file path to match your import.
-4. **Add a `tailwind.config.js`** and ensure the Vite plugin name matches your dependency.
-5. **Improve error handling** in your data-fetching effects (abort controllers, interceptors).
+**Improve error handling** in your data-fetching effects (abort controllers, interceptors).
