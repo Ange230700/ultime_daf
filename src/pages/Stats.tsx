@@ -60,15 +60,20 @@ export default function Stats() {
   // Theme CSS variables
   const style = getComputedStyle(document.documentElement);
   const textColor = style.getPropertyValue("--text-color").trim();
-  const textColorSecondary = style
-    .getPropertyValue("--text-color-secondary")
-    .trim();
   const surfaceBorder = style.getPropertyValue("--surface-border").trim();
   const themeColors = [
-    style.getPropertyValue("--blue-500").trim(),
-    style.getPropertyValue("--green-500").trim(),
-    style.getPropertyValue("--yellow-500").trim(),
-    style.getPropertyValue("--red-500").trim(),
+    style.getPropertyValue("--blue-400").trim(),
+    style.getPropertyValue("--green-400").trim(),
+    style.getPropertyValue("--yellow-400").trim(),
+    style.getPropertyValue("--cyan-400").trim(),
+    style.getPropertyValue("--pink-400").trim(),
+    style.getPropertyValue("--indigo-400").trim(),
+    style.getPropertyValue("--teal-400").trim(),
+    style.getPropertyValue("--orange-400").trim(),
+    style.getPropertyValue("--bluegray-400").trim(),
+    style.getPropertyValue("--purple-400").trim(),
+    style.getPropertyValue("--red-400").trim(),
+    style.getPropertyValue("--gray-400").trim(),
   ];
 
   // Build chart data
@@ -126,11 +131,11 @@ export default function Stats() {
     ...commonOptions,
     scales: {
       x: {
-        ticks: { color: textColorSecondary },
+        ticks: { color: textColor },
         grid: { color: surfaceBorder },
       },
       y: {
-        ticks: { color: textColorSecondary },
+        ticks: { color: textColor },
         grid: { color: surfaceBorder },
         beginAtZero: true,
       },
@@ -141,11 +146,11 @@ export default function Stats() {
     ...commonOptions,
     scales: {
       x: {
-        ticks: { color: textColorSecondary },
+        ticks: { color: textColor },
         grid: { color: surfaceBorder },
       },
       y: {
-        ticks: { color: textColorSecondary },
+        ticks: { color: textColor },
         grid: { color: surfaceBorder },
       },
     },
