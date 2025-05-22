@@ -9,6 +9,7 @@ import { Button } from "primereact/button";
 import { Image } from "primereact/image";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import SafeHtml from "../components/SafeHtml";
 
 export default function Details() {
   const { uid } = useParams<{ uid: string }>();
@@ -45,28 +46,31 @@ export default function Details() {
 
       <div className="space-y-4">
         {item.description && (
-          <p>
+          <div>
             <strong>Description:</strong> {item.description}
-          </p>
+          </div>
         )}
         {item.caution && (
-          <p>
-            <strong>Caution:</strong> {item.caution}
-          </p>
+          <div>
+            <strong>Caution:</strong>{" "}
+            <SafeHtml html={item.caution} className="mt-1 ml-4" />
+          </div>
         )}
         {item.details && (
-          <p>
-            <strong>Details:</strong> {item.details}
-          </p>
+          <div>
+            <strong>Details:</strong>{" "}
+            <SafeHtml html={item.details} className="mt-1 ml-4" />
+          </div>
         )}
         {item.remarks && (
-          <p>
-            <strong>Remarks:</strong> {item.remarks}
-          </p>
+          <div>
+            <strong>Remarks:</strong>{" "}
+            <SafeHtml html={item.remarks} className="mt-1 ml-4" />
+          </div>
         )}
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 px-40">
         <DataTable
           value={rows}
           stripedRows
