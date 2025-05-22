@@ -87,10 +87,10 @@ export default function Stats() {
 
   return (
     <article className="prose mx-auto my-8">
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8">
         {/* Pie */}
         <section className="rounded-lg p-4 shadow">
-          <h2 className="mb-2 text-lg font-semibold">Poster Classification</h2>
+          <h2 className="mb-2 text-2xl font-semibold">Poster Classification</h2>
           <div className="h-64">
             <Chart
               type="pie"
@@ -103,7 +103,7 @@ export default function Stats() {
 
         {/* Bar */}
         <section className="rounded-lg p-4 shadow">
-          <h2 className="mb-2 text-lg font-semibold">
+          <h2 className="mb-2 text-2xl font-semibold">
             Field Office Case Counts
           </h2>
           <div className="h-64">
@@ -118,7 +118,7 @@ export default function Stats() {
 
         {/* Line */}
         <section className="rounded-lg p-4 shadow">
-          <h2 className="mb-2 text-lg font-semibold">
+          <h2 className="mb-2 text-2xl font-semibold">
             Yearly Publication Trend
           </h2>
           <div className="h-64">
