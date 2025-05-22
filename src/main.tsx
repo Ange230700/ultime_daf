@@ -10,18 +10,21 @@ import ThemeStyles from "./components/ThemeStyles.tsx";
 import { ThemeProvider } from "./providers/ThemeProvider.tsx";
 import App from "./App.tsx";
 import { FilterProvider } from "./providers/FilterProvider.tsx";
+import { ToastProvider } from "./providers/ToastProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider>
-      <ThemeStyles />
-      <PrimeReactProvider>
-        <FilterProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </FilterProvider>
-      </PrimeReactProvider>
-    </ThemeProvider>
+    <ToastProvider>
+      <ThemeProvider>
+        <ThemeStyles />
+        <PrimeReactProvider>
+          <FilterProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </FilterProvider>
+        </PrimeReactProvider>
+      </ThemeProvider>
+    </ToastProvider>
   </StrictMode>,
 );

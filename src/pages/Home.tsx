@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 import Thumbnail from "../components/Thumbnail";
 import Pagination from "../components/Pagination";
 import Spinner from "../components/Spinner";
+import { useToast } from "../contexts/ToastContext";
 
 export default function Home() {
   const { title, posterClassification, page, pageSize, setPage } = useFilter();
   const [items, setItems] = useState<WantedItem[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const { show } = useToast();
 
   // 1. Whenever filters change, reset back to page 1
   useEffect(() => {
@@ -32,12 +34,16 @@ export default function Home() {
         setTotal(data.total);
       })
       .catch((err) => {
-        console.error("Failed to load wanted list", err);
+        show({
+          severity: "error",
+          summary: "Failed to load wanted list",
+          detail: err.message,
+        });
         setItems([]);
         setTotal(0);
       })
       .finally(() => setLoading(false));
-  }, [title, posterClassification, page, pageSize]);
+  }, [title, posterClassification, page, pageSize, show]);
 
   let content: React.ReactNode;
   if (loading) {
