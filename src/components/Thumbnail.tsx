@@ -26,7 +26,7 @@ export default function Thumbnail({ item }: { readonly item: WantedItem }) {
       )}
       {hasImage ? (
         <img
-          src={rawSrc!}
+          src={rawSrc}
           alt={item.title}
           className={`h-80 w-full rounded-t-lg object-cover transition-opacity duration-300 ${
             isLoaded ? "opacity-100" : "opacity-0"
