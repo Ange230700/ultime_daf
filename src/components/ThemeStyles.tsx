@@ -2,11 +2,9 @@
 
 import { useEffect } from "react";
 import useTheme from "../hooks/useTheme";
-import { useToast } from "../contexts/ToastContext";
 
 function ThemeStyles() {
   const { theme } = useTheme();
-  const { show } = useToast();
 
   useEffect(() => {
     // remove the old theme link if present
@@ -19,7 +17,7 @@ function ThemeStyles() {
     link.rel = "stylesheet";
     link.href = `/themes/soho-${theme}/theme.css`;
     document.head.appendChild(link);
-  }, [theme, show]);
+  }, [theme]);
 
   return null;
 }

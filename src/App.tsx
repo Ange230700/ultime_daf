@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 
 export default function App() {
   return (
-    <div className="flex-1 items-center justify-center">
+    <>
       <Header />
       <main className="flex flex-1 flex-col p-4">
         <Routes>
@@ -19,6 +19,6 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
