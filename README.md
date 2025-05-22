@@ -1,6 +1,4 @@
-Here’s a “Getting Started” section you can drop into your README (or extend your project description) to explain how to set up and run in dev mode:
-
----
+# ultime_daf
 
 ## 📦 Prerequisites
 
